@@ -1,0 +1,14 @@
+{
+  "name": "codejam-virtual-keyboard",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gagarin880120/codejam-virtual-keyboard.git"
+  },
+  "author": "Andrei Mandryk",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1"
+  }
+}
