@@ -21,6 +21,10 @@ textarea {
   margin-top: 6px;
 }
 
+.row *{
+  transition: border-radius 0.05s ease-in;
+}
+
 .number {
   width: 40px;
   height: 40px;
@@ -32,6 +36,16 @@ textarea {
 }
 
 .letter {
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  background: #3A424E;
+  color: #f2f2f2;
+  font-size: 28px;
+  text-align: center;
+}
+
+.arrow {
   width: 40px;
   height: 40px;
   border-radius: 10%;
@@ -130,5 +144,6 @@ textarea {
 
 .active {
   background: rgb(228, 8, 74);
+  border-radius: 20px;
 }
 
