@@ -582,6 +582,19 @@ document.addEventListener('keyup', (event) => { // CapsLock
   }
 });
 
+const numbers = document.getElementsByClassName('number');
+const arrows = document.getElementsByClassName('arrow');
+
+const inputSymbols = [...letters, ...numbers, ...arrows];
+
+document.addEventListener('keydown', (event) => {
+  for (let i = 0; i < inputSymbols.length; i += 1) {
+    if (event.keyCode === inputSymbols[i].code) {
+      textarea.append(inputSymbols[i].innerText);
+    }
+  }
+})
+
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
 document.addEventListener('keydown', (event) => {
@@ -657,3 +670,4 @@ for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].classList.remove('active');
   });
 }
+
