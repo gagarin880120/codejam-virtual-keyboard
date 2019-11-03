@@ -220,7 +220,7 @@ letterBracketRightBtn.eng = ']';
 letterBracketRightBtn.cyr = 'ъ';
 letterBracketRightBtn.code = 221;
 
-row2Array.push(letterBracketLeftBtn);
+row2Array.push(letterBracketRightBtn);
 
 const backSlashBtn = document.createElement('div');
 backSlashBtn.className = 'backSlash';
@@ -539,36 +539,38 @@ for (let i = 0; i < arrayOfElements.length; i += 1) {
 document.body.append(wrapper);
 
 const letters = document.getElementsByClassName('letter');
-
+// =================================================SWITCHER=============================
 let letterMode = 'eng';
 
-function draw() {
+function drawLetters() {
   for (let i = 0; i < letters.length; i += 1) {
     letters[i].innerText = letters[i][letterMode];
   }
 }
 
 function setLang() {
-  if (letterMode === 'cyr') {
-    letterMode = 'eng';
-  } else {
+  if (letterMode === 'eng') {
     letterMode = 'cyr';
+    drawLetters();
+  } else {
+    letterMode = 'eng';
+    drawLetters();
   }
-  return letterMode;
 }
 
-document.addEventListener('keydown', (event) => {
-  if (event.altKey && event.which === 16) {
-    setLang();
-    draw();
-  }
-});
+function change() {
+  document.addEventListener('keydown', (event) => {
+    if (event.altKey && event.which === 16) {
+      setLang();
+    }
+  });
+}
+change();
+drawLetters();
 
-localStorage.setItem(letterMode, setLang());
+// =================================================!SWITCHER================================
 
-draw();
-
-document.addEventListener('keyup', (event) => {
+document.addEventListener('keyup', (event) => { // CapsLock
   if (event.which === 20) {
     for (let i = 0; i < letters.length; i += 1) {
       if (letters[i].innerText === letters[i].innerText.toUpperCase()) {
@@ -609,6 +611,7 @@ document.addEventListener('keydown', (event) => {
   }
 
   for (let i = 0; i < buttons.length; i += 1) {
+    // eslint-disable-next-line max-len
     if (event.keyCode === buttons[i].code && event.keyCode !== 16 && event.keyCode !== 17 && event.keyCode !== 18) {
       buttons[i].classList.toggle('active');
     }
@@ -638,8 +641,19 @@ document.addEventListener('keyup', (event) => {
   }
 
   for (let i = 0; i < buttons.length; i += 1) {
+    // eslint-disable-next-line max-len
     if (event.keyCode === buttons[i].code && event.keyCode !== 16 && event.keyCode !== 17 && event.keyCode !== 18) {
       buttons[i].classList.remove('active');
     }
   }
 });
+
+for (let i = 0; i < buttons.length; i += 1) {
+  buttons[i].addEventListener('mousedown', () => {
+    buttons[i].classList.toggle('active');
+  });
+
+  buttons[i].addEventListener('mouseup', () => {
+    buttons[i].classList.remove('active');
+  });
+}
