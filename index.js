@@ -662,7 +662,7 @@ function normalize() {
   for (let i = 0; i < letters.length; i += 1) {
     letters[i].innerText = letters[i].innerText.toLowerCase();
   }
-  drawDefaultNumbers()
+  drawDefaultNumbers();
 }
 
 document.addEventListener('keydown', (event) => { // shift
@@ -675,7 +675,13 @@ document.addEventListener('keyup', (event) => {
   if (event.keyCode === 16) {
     normalize();
   }
-})
+});
+
+document.addEventListener('keyup', (event) => { // Tab
+  if (event.keyCode === 9) {
+    textarea.append('\t');
+  }
+});
 
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
