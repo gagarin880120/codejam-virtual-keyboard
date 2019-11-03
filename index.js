@@ -20,84 +20,108 @@ row1Array.push(backquoteBt);
 
 const digit1Btn = document.createElement('div');
 digit1Btn.className = 'number';
-digit1Btn.innerText = '1';
+digit1Btn.def = '1';
+digit1Btn.eng = '!';
+digit1Btn.cyr = '!';
 digit1Btn.code = 49;
 
 row1Array.push(digit1Btn);
 
 const digit2Btn = document.createElement('div');
 digit2Btn.className = 'number';
-digit2Btn.innerText = '2';
+digit2Btn.def = '2';
+digit2Btn.eng = '@';
+digit2Btn.cyr = '"';
 digit2Btn.code = 50;
 
 row1Array.push(digit2Btn);
 
 const digit3Btn = document.createElement('div');
 digit3Btn.className = 'number';
-digit3Btn.innerText = '3';
+digit3Btn.def = '3';
+digit3Btn.eng = '#';
+digit3Btn.cyr = '№';
 digit3Btn.code = 51;
 
 row1Array.push(digit3Btn);
 
 const digit4Btn = document.createElement('div');
 digit4Btn.className = 'number';
-digit4Btn.innerText = '4';
+digit4Btn.def = '4';
+digit4Btn.eng = '$';
+digit4Btn.cyr = ';';
 digit4Btn.code = 52;
 
 row1Array.push(digit4Btn);
 
 const digit5Btn = document.createElement('div');
 digit5Btn.className = 'number';
-digit5Btn.innerText = '5';
+digit5Btn.def = '5';
+digit5Btn.eng = '%';
+digit5Btn.cyr = '%';
 digit5Btn.code = 53;
 
 row1Array.push(digit5Btn);
 
 const digit6Btn = document.createElement('div');
 digit6Btn.className = 'number';
-digit6Btn.innerText = '6';
+digit6Btn.def = '6';
+digit6Btn.eng = '^';
+digit6Btn.cyr = ':';
 digit6Btn.code = 54;
 
 row1Array.push(digit6Btn);
 
 const digit7Btn = document.createElement('div');
 digit7Btn.className = 'number';
-digit7Btn.innerText = '7';
+digit7Btn.def = '7';
+digit7Btn.eng = '&';
+digit7Btn.cyr = '?';
 digit7Btn.code = 55;
 
 row1Array.push(digit7Btn);
 
 const digit8Btn = document.createElement('div');
 digit8Btn.className = 'number';
-digit8Btn.innerText = '8';
+digit8Btn.def = '8';
+digit8Btn.eng = '*';
+digit8Btn.cyr = '*';
 digit8Btn.code = 56;
 
 row1Array.push(digit8Btn);
 
 const digit9Btn = document.createElement('div');
 digit9Btn.className = 'number';
-digit9Btn.innerText = '9';
+digit9Btn.def = '9';
+digit9Btn.eng = '(';
+digit9Btn.cyr = '(';
 digit9Btn.code = 57;
 
 row1Array.push(digit9Btn);
 
 const digit0Btn = document.createElement('div');
 digit0Btn.className = 'number';
-digit0Btn.innerText = '0';
+digit0Btn.def = '0';
+digit0Btn.eng = ')';
+digit0Btn.cyr = ')';
 digit0Btn.code = 58;
 
 row1Array.push(digit0Btn);
 
 const minusBtn = document.createElement('div');
 minusBtn.className = 'number';
-minusBtn.innerText = '-';
+minusBtn.def = '-';
+minusBtn.eng = '_';
+minusBtn.cyr = '_';
 minusBtn.code = 189;
 
 row1Array.push(minusBtn);
 
 const equalBtn = document.createElement('div');
 equalBtn.className = 'number';
-equalBtn.innerText = '=';
+equalBtn.def = '=';
+equalBtn.eng = '+';
+equalBtn.cyr = '+';
 equalBtn.code = 187;
 
 row1Array.push(equalBtn);
@@ -485,6 +509,7 @@ row5Array.push(altLeftBtn);
 
 const spaceBtn = document.createElement('div');
 spaceBtn.classList = 'space';
+spaceBtn.innerText = '\0';
 spaceBtn.code = 32;
 
 row5Array.push(spaceBtn);
@@ -560,7 +585,7 @@ function setLang() {
 
 function change() {
   document.addEventListener('keydown', (event) => {
-    if (event.altKey && event.which === 16) {
+    if (event.altKey && event.ctrlKey) {
       setLang();
     }
   });
@@ -583,9 +608,18 @@ document.addEventListener('keyup', (event) => { // CapsLock
 });
 
 const numbers = document.getElementsByClassName('number');
+
+function drawDefaultNumbers() {
+  for (let i = 0; i < numbers.length; i += 1) {
+    numbers[i].innerText = numbers[i].def;
+  }
+}
+
+drawDefaultNumbers();
+
 const arrows = document.getElementsByClassName('arrow');
 
-const inputSymbols = [...letters, ...numbers, ...arrows];
+const inputSymbols = [...letters, ...numbers, ...arrows, spaceBtn];
 
 document.addEventListener('keydown', (event) => { // text output
   for (let i = 0; i < inputSymbols.length; i += 1) {
@@ -611,10 +645,37 @@ document.addEventListener('keydown', (event) => { // backSpace
 
 document.addEventListener('keydown', (event) => { // Enter
   if (event.keyCode === 13) {
-
     textarea.append('\n');
   }
 });
+
+function shifted() {
+  for (let i = 0; i < letters.length; i += 1) {
+    letters[i].innerText = letters[i].innerText.toUpperCase();
+  }
+  for (let i = 0; i < numbers.length; i += 1) {
+    numbers[i].innerText = numbers[i][letterMode];
+  }
+}
+
+function normalize() {
+  for (let i = 0; i < letters.length; i += 1) {
+    letters[i].innerText = letters[i].innerText.toLowerCase();
+  }
+  drawDefaultNumbers()
+}
+
+document.addEventListener('keydown', (event) => { // shift
+  if (event.keyCode === 16) {
+    shifted();
+  }
+})
+
+document.addEventListener('keyup', (event) => {
+  if (event.keyCode === 16) {
+    normalize();
+  }
+})
 
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
