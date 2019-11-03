@@ -607,6 +607,16 @@ document.addEventListener('keyup', (event) => { // CapsLock
   }
 });
 
+capsLockBtn.addEventListener('click', () => {
+  for (let i = 0; i < letters.length; i += 1) {
+    if (letters[i].innerText === letters[i].innerText.toUpperCase()) {
+      letters[i].innerText = letters[i].innerText.toLowerCase();
+    } else {
+      letters[i].innerText = letters[i].innerText.toUpperCase();
+    }
+  }
+})
+
 const numbers = document.getElementsByClassName('number');
 
 function drawDefaultNumbers() {
@@ -643,11 +653,21 @@ document.addEventListener('keydown', (event) => { // backSpace
   }
 });
 
+backSpaceBtn.addEventListener('click', () => {
+  const textArr = textarea.textContent.split('');
+  textArr.pop();
+  textarea.textContent = textArr.join('');
+})
+
 document.addEventListener('keydown', (event) => { // Enter
   if (event.keyCode === 13) {
     textarea.append('\n');
   }
 });
+
+enterBtn.addEventListener('click', () => {
+  textarea.append('\n');
+})
 
 function shifted() {
   for (let i = 0; i < letters.length; i += 1) {
@@ -671,6 +691,12 @@ document.addEventListener('keydown', (event) => { // shift
   }
 })
 
+shiftLeftBtn.addEventListener('mousedown', shifted);
+shiftLeftBtn.addEventListener('mouseup', normalize);
+
+shiftRightBtn.addEventListener('mousedown', shifted);
+shiftRightBtn.addEventListener('mouseup', normalize);
+
 document.addEventListener('keyup', (event) => {
   if (event.keyCode === 16) {
     normalize();
@@ -682,6 +708,10 @@ document.addEventListener('keyup', (event) => { // Tab
     textarea.append('\t');
   }
 });
+
+tabBtn.addEventListener('click', () => {
+  textarea.append('\t');
+})
 
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
