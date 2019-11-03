@@ -567,31 +567,34 @@ const letters = document.getElementsByClassName('letter');
 // =================================================SWITCHER=============================
 let letterMode = 'eng';
 
-function drawLetters() {
+function drawLetters(letterMode) {
   for (let i = 0; i < letters.length; i += 1) {
     letters[i].innerText = letters[i][letterMode];
   }
 }
 
-function setLang() {
-  if (letterMode === 'eng') {
-    letterMode = 'cyr';
-    drawLetters();
-  } else {
-    letterMode = 'eng';
-    drawLetters();
-  }
-}
-
-function change() {
-  document.addEventListener('keydown', (event) => {
-    if (event.altKey && event.ctrlKey) {
-      setLang();
+document.addEventListener('keydown', (event) => {
+  if (event.altKey && event.ctrlKey) {
+    if (letterMode === 'eng') {
+      letterMode = 'cyr';
+      drawLetters(letterMode);
+      localStorage.setItem('mode', letterMode);
+    } else {
+      letterMode = 'eng';
+      drawLetters(letterMode);
+      localStorage.setItem('mode', letterMode);
     }
-  });
-}
-change();
-drawLetters();
+  }
+});
+
+window.onload = () => {
+  if (localStorage.length === 0) {
+    this.drawLetters('eng');
+  } else {
+    letterMode = localStorage.getItem('mode');
+    drawLetters(localStorage.getItem('mode'));
+  }
+};
 
 // =================================================!SWITCHER================================
 
@@ -615,7 +618,7 @@ capsLockBtn.addEventListener('click', () => {
       letters[i].innerText = letters[i].innerText.toUpperCase();
     }
   }
-})
+});
 
 const numbers = document.getElementsByClassName('number');
 
@@ -637,7 +640,7 @@ document.addEventListener('keydown', (event) => { // text output
       textarea.append(inputSymbols[i].innerText);
     }
   }
-})
+});
 
 for (let i = 0; i < inputSymbols.length; i += 1) {
   inputSymbols[i].addEventListener('click', () => {
@@ -657,7 +660,7 @@ backSpaceBtn.addEventListener('click', () => {
   const textArr = textarea.textContent.split('');
   textArr.pop();
   textarea.textContent = textArr.join('');
-})
+});
 
 document.addEventListener('keydown', (event) => { // Enter
   if (event.keyCode === 13) {
@@ -667,12 +670,13 @@ document.addEventListener('keydown', (event) => { // Enter
 
 enterBtn.addEventListener('click', () => {
   textarea.append('\n');
-})
+});
 
 function shifted() {
   for (let i = 0; i < letters.length; i += 1) {
     letters[i].innerText = letters[i].innerText.toUpperCase();
   }
+
   for (let i = 0; i < numbers.length; i += 1) {
     numbers[i].innerText = numbers[i][letterMode];
   }
@@ -689,7 +693,7 @@ document.addEventListener('keydown', (event) => { // shift
   if (event.keyCode === 16) {
     shifted();
   }
-})
+});
 
 shiftLeftBtn.addEventListener('mousedown', shifted);
 shiftLeftBtn.addEventListener('mouseup', normalize);
@@ -711,7 +715,7 @@ document.addEventListener('keyup', (event) => { // Tab
 
 tabBtn.addEventListener('click', () => {
   textarea.append('\t');
-})
+});
 
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
