@@ -587,13 +587,34 @@ const arrows = document.getElementsByClassName('arrow');
 
 const inputSymbols = [...letters, ...numbers, ...arrows];
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => { // text output
   for (let i = 0; i < inputSymbols.length; i += 1) {
     if (event.keyCode === inputSymbols[i].code) {
       textarea.append(inputSymbols[i].innerText);
     }
   }
 })
+
+for (let i = 0; i < inputSymbols.length; i += 1) {
+  inputSymbols[i].addEventListener('click', () => {
+    textarea.append(inputSymbols[i].innerText);
+  });
+}
+
+document.addEventListener('keydown', (event) => { // backSpace
+  if (event.keyCode === 8) {
+    const textArr = textarea.textContent.split('');
+    textArr.pop();
+    textarea.textContent = textArr.join('');
+  }
+});
+
+document.addEventListener('keydown', (event) => { // Enter
+  if (event.keyCode === 13) {
+
+    textarea.append('\n');
+  }
+});
 
 const buttons = [...row1Array, ...row2Array, ...row3Array, ...row4Array, ...row5Array];
 
@@ -670,4 +691,3 @@ for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].classList.remove('active');
   });
 }
-
