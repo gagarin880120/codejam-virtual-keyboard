@@ -468,7 +468,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 window.onload = () => {
-  if (localStorage.length === 0) {
+  if (!localStorage.getItem('mode')) {
     this.drawLetters('eng');
   } else {
     letterMode = localStorage.getItem('mode');
@@ -664,6 +664,10 @@ for (let i = 0; i < buttons.length; i += 1) {
   });
 
   buttons[i].addEventListener('mouseup', () => {
+    buttons[i].classList.remove('active');
+  });
+
+  buttons[i].addEventListener('mouseleave', () => {
     buttons[i].classList.remove('active');
   });
 }
